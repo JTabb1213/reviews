@@ -1,0 +1,26 @@
+{
+    "providers": {
+        "location": "googleapi",
+        "map": "googlemapapi",
+        "events": "ticketmaster",
+        "reviews": "yelp"
+    },
+    "database": {
+        "port": "5432",
+        "host": "stampy.db.elephantsql.com",
+        "hostLocal": "localhost",
+        "user": "bpfzpmmq",
+        "userLocal": "admin",
+        "password": "5MFU1L3SPz6Ls7nrAocj0esMA3CjGpeV",
+        "passwordLocal": "password",
+        "db": "bpfzpmmq",
+        "dbLocal": "weather",
+        "dialect": "postgres",
+        "pool": {
+            "max": 5,
+            "min": 0,
+            "acquire": 30000,
+            "idle": 10000
+        }
+    }
+}
