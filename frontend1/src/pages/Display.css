@@ -1,0 +1,13 @@
+@media screen and (max-width: 600px) {
+    .slideBarContainer {
+        /* Adjust the size of the container for smaller screens */
+        width: 80%;
+        /* Adjust width as needed */
+        height: 200px;
+        /* Adjust height as needed */
+        margin: auto;
+        /* Center horizontally */
+        overflow: auto;
+        /* Add scrollbars if content overflows */
+    }
+}

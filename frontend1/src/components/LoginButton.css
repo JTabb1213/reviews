@@ -1,0 +1,12 @@
+.Login-button {
+    background-color: green;
+    color: white;
+    top: 20px;
+    /* Increase space from the top */
+    bottom: 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
