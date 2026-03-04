@@ -29,9 +29,10 @@ async function addReview(rating, username, id, review) {
 async function deleteReview(username, id) {
     try {
         const result = await Review.destroy({ where: { user_id: username, restaurant_id: id } });
-        console.log("city was deleted");
+        console.log("review was deleted");
         return result;
     } catch (error) {
+        console.log("Error deleteing review", error);
         console.error("error finding review for deleteing:", error);
     }
 }

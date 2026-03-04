@@ -32,9 +32,8 @@ function SearchPage() {
 
     async function success(pos: any) {
         const { latitude, longitude } = pos.coords;
-        //console.log('Latitude:', latitude);
-        //console.log('Longitude:', longitude);
-        const response = await httpClient.get(`/api/restaurantsNearby?address=${city}&name=${keyword}&nextPageToken=${nextPageToken}&lat=${latitude}&lng=${longitude}`);
+        // Always send 'my location' here — the backend uses lat/lng directly and ignores the address
+        const response = await httpClient.get(`/api/restaurantsNearby?address=my location&name=${keyword}&nextPageToken=${nextPageToken}&lat=${latitude}&lng=${longitude}`);
         handleResponse(response);
     }
 
@@ -46,7 +45,7 @@ function SearchPage() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await httpClient.post('/api/seeIfLoggedIn');
+                const response = await httpClient.post('/api/seeIfLoggedIn', {}, { withCredentials: true });
             } catch (error: any) {
                 if (error.response && error.response.status === 401) {
                     //console.log("not logged in");
@@ -160,20 +159,23 @@ function SearchPage() {
 
     const handleSearch = async () => {
         setButtonClicked(true);
-        console.log("city:", city);
+        // Default empty "Near" field to 'my location'
+        const effectiveCity = city.trim() === '' ? 'my location' : city;
+        if (effectiveCity !== city) setCity('my location');
+        console.log("city:", effectiveCity);
         try {
             setError("");
-            //console.log('City:', city);
-            //console.log('Keyword:', keyword);
-            if (city === 'my location') {
+            if (effectiveCity.toLowerCase() === 'my location') {
                 getCurrentPos();
             } else {
-                const response = await httpClient.get(`/api/restaurantsNearby?address=${city}&name=${keyword}&nextPageToken=${nextPageToken}`);
+                const response = await httpClient.get(`/api/restaurantsNearby?address=${effectiveCity}&name=${keyword}&nextPageToken=${nextPageToken}`);
                 handleResponse(response);
             }
         } catch (error: any) {
             console.log('Error calling backend for nearby restaurants:', error);
-            setError(error.response.data);
+            // Extract string from error — avoids "Objects are not valid as a React child" crash
+            const msg = error.response?.data?.message || error.response?.data || 'Something went wrong, please try again.';
+            setError(typeof msg === 'string' ? msg : JSON.stringify(msg));
         }
     };
 
@@ -184,6 +186,8 @@ function SearchPage() {
             ) : (
                 <LoginButton />
             )}
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2.2rem', color: '#2d3436', marginBottom: '4px', textAlign: 'center' }}>🍽️ Restaurant Reviews</h1>
+            <p style={{ color: '#636e72', marginBottom: '20px', textAlign: 'center', fontSize: '0.95rem' }}>Discover and review the best places to eat</p>
             <div className="search-container">
                 <label>
                     Near:

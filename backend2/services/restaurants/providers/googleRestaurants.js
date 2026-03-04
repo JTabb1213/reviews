@@ -1,5 +1,4 @@
 const axios = require('axios');
-const apiKey = "AIzaSyAXdHdQzOHXknbF2azGqn9ko5cDn4PjA9s";
 const location = require('../../location');
 const { CityDoesNotExistError } = require('../../../errors');
 
@@ -9,7 +8,7 @@ async function getRestaurants(city, keyword = null, nextPageTokenParam = null, l
 
         if (city.toLowerCase() === 'my location') {
             coordinates = { lat, lng };
-            console.log("H", lat, lng);
+            //console.log("H", lat, lng);
         } else {
             coordinates = await location.getCoordinates(city);
         }
@@ -18,7 +17,7 @@ async function getRestaurants(city, keyword = null, nextPageTokenParam = null, l
             throw new CityDoesNotExistError(`${city}`);
         }
 
-        let apiURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.lat},${coordinates.lng}&radius=5000&type=restaurant&key=${apiKey}` + (nextPageTokenParam ? `&pagetoken=${nextPageTokenParam}` : '');
+        let apiURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.lat},${coordinates.lng}&radius=5000&type=restaurant&key=${process.env.GOOGLE_API_KEY}` + (nextPageTokenParam ? `&pagetoken=${nextPageTokenParam}` : '');
 
         if (keyword) {
             apiURL += `&keyword=${encodeURIComponent(keyword)}`;//encode url to include special chars like spaces

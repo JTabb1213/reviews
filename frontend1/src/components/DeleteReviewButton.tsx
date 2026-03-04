@@ -16,22 +16,22 @@ function DeleteReviewButton({ username, query }: { username: string | null, quer
     console.log("got username", username)
     console.log("Id", query);
 
-    const handleAddReview = async (event: MouseEvent) => {
-        event.preventDefault();
-        try {
-            const confirmDelete = window.confirm("Are you sure you want to delete your review?");
-            if (confirmDelete) {
-                const response = httpClient.delete(`/api/deleteRev?user=${username}&id=${query}`);
-                console.log(response);
+    async function confirmAndDelete() {
+        const confirmDelete = window.confirm("Are you sure you want to delete your review?");
+        if (confirmDelete) {
+            try {
+                const response = await httpClient.delete(`/api/deleteRev?user=${username}&id=${query}`);
+                console.log(response.data);
                 window.location.reload();
+            } catch (err) {
+                console.error(err);
+                alert("Delete failed");
             }
-        } catch (error: any) {
-            console.error("error deleting review", error);
         }
-    };
+    }
 
     return (
-        <button onClick={handleAddReview} className="Add-review-button">
+        <button onClick={confirmAndDelete} className="Add-review-button" style={{ background: 'linear-gradient(135deg, #d63031, #c0392b)' }}>
             Delete your review
         </button>
     );

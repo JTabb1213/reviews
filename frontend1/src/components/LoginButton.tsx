@@ -29,7 +29,7 @@ function LoginButton() {
 
     return (
         <button onClick={handleLogin} className="Login-button">
-            login
+            → Log in
         </button>
     );
 }

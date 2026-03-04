@@ -1,0 +1,20 @@
+# ----- Credentials / secrets -----
+.env
+.env.*
+!.env.example
+!.env.production
+
+# ----- Dependencies -----
+node_modules/
+
+# ----- Frontend build output -----
+frontend1/build/
+
+# ----- Logs -----
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ----- OS files -----
+.DS_Store
+Thumbs.db

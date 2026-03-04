@@ -98,30 +98,30 @@ function DisplayPage() {
     //console.log("made it here", query);
 
     return (
-        <div>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <SearchButton />
+        <div className="display-page">
+            <div className="display-page-toolbar">
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <SearchButton />
+                    </Grid>
+
+                    <Grid item xs={12} sm={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        {userHasReview ? (
+                            <DeleteReviewButton username={username} query={query} />
+                        ) : (
+                            <AddReviewButton />
+                        )}
+                    </Grid>
+
+                    <Grid item xs={12} sm={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        {isLoggedIn ? (
+                            <LogoutButton />
+                        ) : (
+                            <LoginButton />
+                        )}
+                    </Grid>
                 </Grid>
-
-                <Grid item xs={12} sm={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    {userHasReview ? (
-                        <DeleteReviewButton username={username} query={query} />
-                    ) : (
-                        <AddReviewButton />
-                    )}
-                </Grid>
-
-                <Grid item xs={12} sm={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    {isLoggedIn ? (
-                        <LogoutButton />
-                    ) : (
-                        <LoginButton />
-                    )}
-                </Grid>
-
-
-            </Grid>
+            </div>
             <div className='DisplayResults'>
                 <DisplayResults />
             </div>

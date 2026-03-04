@@ -64,14 +64,16 @@ function DisplayResults() {
         <div className="photos-container">
             <div className="photos-wrapper">
                 {photoURLs.length === 0 ? (
-                    <div>No photos for {name}!</div>
+                    <div style={{ textAlign: 'center', width: '100%', padding: '40px 20px', color: '#636e72', fontStyle: 'italic' }}>
+                        No photos available for {name}
+                    </div>
                 ) : (
                     <>
                         <div className="Restaurant-Name">
                             {name}
                         </div>
                         {photoURLs.map((url, index) => (
-                            <img key={index} src={url} alt={`{index}`} className="photo" />
+                            <img key={index} src={url} alt={`${name} photo ${index + 1}`} className="photo" />
                         ))}
                     </>
                 )}

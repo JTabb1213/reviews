@@ -28,7 +28,8 @@ export default function LoginPage() {
         }, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
-            }
+            },
+            withCredentials: true
         }).then(result => {
             console.log("result of login:", result);
             setUser(result.data.username);

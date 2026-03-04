@@ -1,8 +1,7 @@
 
-const apiKey = "AIzaSyAXdHdQzOHXknbF2azGqn9ko5cDn4PjA9s";
 async function getPhotos(photoReference) {
     try {
-        const response = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=${photoReference}&key=${apiKey}`
+        const response = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=${photoReference}&key=${process.env.GOOGLE_API_KEY}`
         //console.log(response);
         return response;
     } catch (error) {

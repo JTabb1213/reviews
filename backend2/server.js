@@ -1,3 +1,4 @@
+require('dotenv').config();
 const restaurantsService = require('./services/restaurants');
 const restaurantByIdService = require('./services/restaurantById');
 const reviewService = require('./services/reviews');
@@ -15,16 +16,24 @@ const app = express();
 const { CityDoesNotExistError } = require('./errors');
 const { EmailAlreadyExists } = require('./errors');
 const { UserAlreadyExists } = require('./errors');
+const path = require('path');
+
 const port = process.env.PORT || 80;
-const REDIS_HOST = process.env.REDIS_HOST || 'redis-16919.c241.us-east-1-4.ec2.redns.redis-cloud.com';
-const REDIS_PORT = process.env.REDIS_PORT || '16919';
-const REDIS_USERNAME = process.env.REDIS_USERNAME || 'default';
-const REDIS_PASSWORD = process.env.REDIS_PASSWORD || 'Kgh60yAyTBvX5Q8O6tYIKGbvkkxmqEb7';
+const REDIS_HOST = process.env.REDIS_HOST;
+const REDIS_PORT = process.env.REDIS_PORT;
+const REDIS_USERNAME = process.env.REDIS_USERNAME;
+const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
+// comment out when deploying, if deploying from same orgin
+
+const corsOrigins = process.env.CORS_ORIGINS
+    ? process.env.CORS_ORIGINS.split(',')
+    : ['http://localhost:3000'];
 
 app.use(
     cors({
-        //origin: ["http://localhost:3000"],
-        origin: ["https://lucky-apparatus-433800-r0.uc.r.appspot.com"],
+        origin: corsOrigins,
         credentials: true,
     })
 );
@@ -32,11 +41,12 @@ app.use(
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('trust proxy', 1);//enable this if you run behind a proxy (e.g. nginx)
+app.set('trust proxy', 1); // enable this if you run behind a proxy, like gcp
 
 let redisUrl = process.env.REDIS_URL;
 if (!redisUrl) {
-    redisUrl = `redis://${REDIS_USERNAME ? REDIS_USERNAME + ':' : ''}${REDIS_PASSWORD ? REDIS_PASSWORD + '@' : ''}${REDIS_HOST}:${REDIS_PORT}`
+    // Use rediss:// (TLS) — required by Upstash and most cloud Redis providers
+    redisUrl = `rediss://${REDIS_USERNAME ? REDIS_USERNAME + ':' : ''}${REDIS_PASSWORD ? REDIS_PASSWORD + '@' : ''}${REDIS_HOST}:${REDIS_PORT}`
 }
 
 /*
@@ -63,6 +73,8 @@ redisClient.on('connect', function (err) {
     console.log('Connected to redis successfully');
 });
 
+// for local dev:
+/*
 app.use(session({
     store: new RedisStore({ client: redisClient }),
     //store: redisStore,
@@ -70,12 +82,41 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-	sameSite: 'None',
-        secure: true,
+        sameSite: 'None',
+        secure: false,
         httpOnly: true,
         maxAge: 10000 * 60 * 10 // session max age in miliseconds
     }
 }))
+*/
+
+//For deploy:
+const isProd = process.env.NODE_ENV === 'production';
+app.use(session({
+    // Firebase Hosting's CDN strips every cookie EXCEPT __session before
+    // forwarding requests to Cloud Run. Renaming the session cookie here
+    // ensures it survives the Firebase → Cloud Run proxy hop.
+    name: '__session',
+    // prefix namespaces all session keys as  reviewsApp:sess:<sid>
+    // so they never collide with keys written by other apps (e.g. weatherApp)
+    store: new RedisStore({ client: redisClient, prefix: 'reviewsApp:sess:' }),
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        sameSite: isProd ? 'None' : 'lax',  // 'None' needed for cross-origin in prod; 'lax' works on localhost
+        secure: isProd,                      // true in prod (HTTPS), false locally (HTTP)
+        httpOnly: true,
+        maxAge: 10000 * 60 * 10
+    }
+}));
+
+
+app.get('/api/debug-session', (req, res) => {
+    console.log("Session:", req.session);
+    res.send(req.session);
+});
+
 
 function isLoggedIn(req, res, next) {
     if (req.session.user) {
@@ -102,17 +143,20 @@ app.get('/api/searchUserRev', async (req, res) => {
 
 app.delete('/api/deleteRev', async (req, res) => {
     try {
-        username = req.query.user;
-        id = req.query.id;
-        const response = reviewService.deleteReview(username, id)
+        const username = req.query.user;
+        const id = req.query.id;
+        const response = await reviewService.deleteReview(username, id);
         res.json(response);
     } catch (error) {
-        res.status(400).send('delete error', error);
+        console.log(error);
+        res.status(400).send('delete error');
     }
-})
+});
 
 app.post('/api/seeIfLoggedIn', (req, res) => {
     if (!req.session.user) {
+        //console.log("HHHH");
+        //console.log("");
         res.status(401).json({ message: 'user is not logged in' });
     } else {
         res.json({ message: 'User is logged in' });
@@ -134,7 +178,7 @@ app.get('/api/getResReviews', (req, res) => {
     getReviewsService.getReviews(id).then(result => {
         res.json(result);
     }).catch(error => {
-        return res.status(400).send('The request is bad', error);
+        return res.status(400).send(error);
     })
 })
 
@@ -216,9 +260,13 @@ app.post('/api/login', async (req, res, next) => {
     }
     userService.findUser(username, password).then(result => {
         if (!result) {
+            console.log("HE");
             res.status(404).json({ message: "User not found" });
         } else {
             req.session.user = result.dataValues;
+            console.log("User is authenticated");
+            console.log(result.dataValues);
+            console.log("Session after login:", req.session);
             res.status(200).json(result);
         }
     }).catch(error => {
@@ -260,8 +308,6 @@ app.post('/api/createUser', async (req, res) => {
         res.status(500).json({ message: 'database error' });
     })
 });
-
-
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

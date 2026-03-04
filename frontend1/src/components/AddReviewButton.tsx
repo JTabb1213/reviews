@@ -34,7 +34,7 @@ function AddReviewButton() {
 
     return (
         <button onClick={handleAddReview} className="Add-review-button">
-            Review this place
+            ✍️ Write a Review
         </button>
     );
 }

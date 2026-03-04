@@ -11,7 +11,7 @@ function SearchButton() {
 
     return (
         <button onClick={handleSearch} className="Search-button">
-            Go back to search
+            ← Back to Search
         </button>
     );
 }

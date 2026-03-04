@@ -36,14 +36,17 @@ function DisplayReviews() {
     return (
         <div className="reviews-container">
             {reviews.length === 0 ? (
-                <p>No reviews yet!</p>
+                <p>No reviews yet — be the first!</p>
             ) : (
                 <div>
+                    <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.4rem', marginBottom: '16px', color: '#2d3436' }}>
+                        Reviews ({reviews.length})
+                    </h2>
                     {reviews.map((review, index) => (
                         <div key={index} className="review">
-                            <h3>Rating: {review.rating}</h3>
-                            <p>User: {review.user_id}</p>
-                            <p>Review: {review.review_text}</p>
+                            <h3>{'⭐'.repeat(review.rating)}{review.rating > 0 ? ` ${review.rating}/5` : ''}</h3>
+                            <p>By {review.user_id}</p>
+                            <p>{review.review_text}</p>
                         </div>
                     ))}
                 </div>

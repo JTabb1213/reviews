@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import './theme.css';
 import SearchPage from './pages/SearchPage';
 import DisplayPage from './pages/DisplayPage';
 import LoginPage from './pages/LoginPage';

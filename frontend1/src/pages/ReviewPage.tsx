@@ -130,11 +130,10 @@ function ReviewPage() {
 
                 <br />
                 <Grid item xs={12}>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div className="emoji-bar" style={{ display: 'flex', justifyContent: 'center' }}>
                         <button onClick={() => insertEmoji('😊')}>😊</button>
                         <button onClick={() => insertEmoji('👍')}>👍</button>
                         <button onClick={() => insertEmoji('🔥')}>🔥</button>
-                        {/* Add more emoji buttons as needed */}
                     </div>
                 </Grid>
                 <br />

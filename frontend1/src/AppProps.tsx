@@ -1,5 +1,9 @@
 const AppProps = {
-    backend: "http://localhost:80"//"https://jacksreviewsbackendone-xc6ybwt5qa-uc.a.run.app"//"https://rev-backend2-mkulfuhbda-uc.a.run.app"//"https://jjjjjjjj.store" //"https://rev-backend2-mkulfuhbda-uc.a.run.app" //"https://jjjjjjjj.store"  //  "https://restaurant-reviews-4wh4tnespa-uc.a.run.app"
-}
+    backend: process.env.REACT_APP_API_URL ?? "http://localhost:80"
+};
+
+console.log('[AppProps] REACT_APP_API_URL env var:', JSON.stringify(process.env.REACT_APP_API_URL));
+console.log('[AppProps] Resolved backend baseURL:', JSON.stringify(AppProps.backend));
 
 export default AppProps;
+

@@ -1,13 +1,32 @@
+/* ===== Display Page layout ===== */
+
+.display-page {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #faf7f2 0%, #f0ebe3 100%);
+    padding-bottom: 60px;
+}
+
+.display-page-toolbar {
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    padding: 16px 24px;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    margin-bottom: 8px;
+}
+
+.DisplayResults {
+    margin-top: 8px;
+}
+
 @media screen and (max-width: 600px) {
     .slideBarContainer {
-        /* Adjust the size of the container for smaller screens */
         width: 80%;
-        /* Adjust width as needed */
         height: 200px;
-        /* Adjust height as needed */
         margin: auto;
-        /* Center horizontally */
         overflow: auto;
-        /* Add scrollbars if content overflows */
+    }
+
+    .display-page-toolbar {
+        padding: 12px 16px;
     }
 }

@@ -1,9 +1,131 @@
+/* ===== Search Page ===== */
+
+.search-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 60px;
+    background: linear-gradient(160deg, #faf7f2 0%, #f0ebe3 100%);
+}
+
+.search-page>button,
+.search-page>.Login-button,
+.search-page>.Logout-button {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 540px;
+    margin-top: 32px;
+    padding: 36px 32px;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: none;
+}
+
+.search-container h2 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--color-text);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.search-container label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-light);
+    margin-bottom: 4px;
+    margin-top: 14px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+    margin: 6px 0 0;
+    box-sizing: border-box;
+}
+
+.search-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(225, 112, 85, 0.15);
+}
+
+.search-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: linear-gradient(135deg, var(--color-primary), #d35400);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.search-button:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(225, 112, 85, 0.45);
+    transform: translateY(-1px);
+}
+
+.search-button:active {
+    transform: scale(0.98);
+}
+
+.search-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Search results list */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
 .results {
-    background-color: #f9f9f9;
-    padding: 10px;
+    background: var(--color-bg);
+    padding: 16px 20px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
-    transition: background-color 0.3s ease;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition);
+    font-size: 0.95rem;
+}
+
+.results:hover {
+    background: #fff;
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+}
+
+.results div {
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    font-weight: 500;
 }
 
 input[type=radio] {
@@ -11,45 +133,30 @@ input[type=radio] {
 }
 
 .star {
-    cursor: pointer
+    cursor: pointer;
+    transition: transform 0.15s ease;
 }
 
-.results:hover {
-    background-color: #e0e0e0;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
+.star:hover {
+    transform: scale(1.15);
 }
 
 .error-message {
-    color: #ff6347;
-    margin-bottom: 10px;
+    color: var(--color-error);
+    background: var(--color-error-bg);
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 12px;
 }
 
-.search-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.colorRingLoading {
+    margin-top: 24px;
 }
 
-.search-input {
-    width: 100%;
-    padding: 8px;
-    margin: 8px 0;
-    box-sizing: border-box;
-}
-
-.search-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
+@media screen and (max-width: 600px) {
+    .search-container {
+        padding: 24px 18px;
+    }
 }

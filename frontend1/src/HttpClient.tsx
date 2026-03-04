@@ -5,6 +5,8 @@ import AppProps from "./AppProps";
 export const useHttpClient = () => {
     //const navigate = useNavigate();
     //const location = useLocation();
+    console.log('[HttpClient] Creating axios instance with baseURL:', JSON.stringify(AppProps.backend));
+
     const axiosInstance = axios.create({
         baseURL: AppProps.backend,
         withCredentials: true,
@@ -13,23 +15,25 @@ export const useHttpClient = () => {
         },
     });
 
+    axiosInstance.interceptors.request.use(request => {
+        const fullURL = (request.baseURL ?? '') + (request.url ?? '');
+        console.log('[HttpClient] Outgoing request:', request.method?.toUpperCase(), fullURL);
+        return request;
+    });
+
     axiosInstance.interceptors.response.use(
         response => {
-
-            return response
+            console.log('[HttpClient] Response:', response.status, response.config.url);
+            return response;
         },
-        /*
         function (error) {
-            const currentPathname = window.location.pathname;
-            if (error.response?.status === 401 && currentPathname !== '/login') {
-                navigate({
-                    pathname: '/login',
-                    search: `redirect_url=${location.pathname}${location.search}`,
-                })
-            }
+            console.error('[HttpClient] Request failed:');
+            console.error('  URL:   ', (error.config?.baseURL ?? '') + (error.config?.url ?? ''));
+            console.error('  Status:', error.response?.status);
+            console.error('  Data:  ', error.response?.data);
+            console.error('  Code:  ', error.code);
             return Promise.reject(error);
         }
-        */
     )
     return axiosInstance;
 }

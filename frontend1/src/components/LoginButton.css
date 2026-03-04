@@ -1,12 +1,27 @@
+/* ===== Login / Logout nav button ===== */
 .Login-button {
-    background-color: green;
-    color: white;
-    top: 20px;
-    /* Increase space from the top */
-    bottom: 20px;
-    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 22px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: var(--color-secondary);
     border: none;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    padding: 10px 20px;
+    transition: all var(--transition);
+}
+
+.Login-button:hover {
+    background: var(--color-secondary-hover);
+    box-shadow: 0 4px 14px rgba(0, 184, 148, 0.35);
+    transform: translateY(-1px);
+}
+
+.Login-button:active {
+    transform: scale(0.97);
 }

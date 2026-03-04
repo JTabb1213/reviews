@@ -7,45 +7,66 @@ const LoginPrompt = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #faf7f2 0%, #f0ebe3 100%);
+  padding: 20px;
 `;
 
 const NeedToLoginBox = styled.div`
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 20px;
+  background: #ffffff;
+  padding: 40px 36px;
   text-align: center;
-  max-width: 300px;
-  margin: 0 auto;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 380px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3436;
+  line-height: 1.5;
 `;
 
 const GoBackButton = styled.button`
-  background-color: #4285f4;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  margin-top: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  color: #e17055;
+  background: transparent;
+  border: 2px solid #e17055;
+  padding: 11px 28px;
+  margin-top: 20px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(.4,0,.2,1);
 
   &:hover {
-    background-color: #3367d6;
+    background: #e17055;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(225, 112, 85, 0.35);
+    transform: translateY(-1px);
   }
 `;
 
 const LoginButtonStyled = styled.button`
-  background-color: #0f9d58;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  background: linear-gradient(135deg, #00b894, #00a381);
   color: #fff;
   border: none;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 12px 32px;
+  margin-top: 12px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(.4,0,.2,1);
 
   &:hover {
-    background-color: #0a8041;
+    box-shadow: 0 4px 14px rgba(0, 184, 148, 0.4);
+    transform: translateY(-1px);
   }
 `;
 
@@ -79,13 +100,12 @@ function BadLoginPage() {
   return (
     <LoginPrompt>
       <NeedToLoginBox>
-        Need to login to add review
+        <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>🔒</div>
+        You need to log in to add a review
         <br />
-        <div className='goBack' style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <LoginButtonStyled onClick={handleLogin}>Log in</LoginButtonStyled>
           <GoBackButton onClick={handleGoBack}>Go back</GoBackButton>
-        </div>
-        <div className='goBack' style={{ display: 'flex', justifyContent: 'center' }}>
-          <LoginButtonStyled onClick={handleLogin}>Login</LoginButtonStyled>
         </div>
       </NeedToLoginBox>
     </LoginPrompt>

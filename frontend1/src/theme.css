@@ -1,0 +1,212 @@
+/* ========================================
+   GLOBAL THEME — Restaurant Reviews App
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+/* ---------- CSS Variables ---------- */
+:root {
+    /* Palette */
+    --color-bg: #faf7f2;
+    --color-surface: #ffffff;
+    --color-primary: #e17055;
+    /* warm coral */
+    --color-primary-hover: #d35400;
+    --color-secondary: #00b894;
+    /* teal green */
+    --color-secondary-hover: #00a381;
+    --color-accent: #fdcb6e;
+    /* gold / stars */
+    --color-text: #2d3436;
+    --color-text-light: #636e72;
+    --color-border: #dfe6e9;
+    --color-error: #d63031;
+    --color-error-bg: #ffeaea;
+    --color-shadow: rgba(0, 0, 0, 0.08);
+
+    /* Typography */
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
+
+    /* Spacing / Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+
+    --shadow-sm: 0 1px 3px var(--color-shadow);
+    --shadow-md: 0 4px 12px var(--color-shadow);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+    --transition: 0.25s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ---------- Reset & Base ---------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    line-height: 1.25;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--color-primary-hover);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ---------- Utility classes ---------- */
+.page-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 20px;
+}
+
+.card {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: 28px 32px;
+}
+
+/* ---------- Button Base ---------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 11px 24px;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition);
+    letter-spacing: 0.02em;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* primary */
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-hover);
+    box-shadow: 0 4px 14px rgba(225, 112, 85, 0.4);
+}
+
+/* secondary / green */
+.btn-secondary {
+    background: var(--color-secondary);
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background: var(--color-secondary-hover);
+    box-shadow: 0 4px 14px rgba(0, 184, 148, 0.35);
+}
+
+/* outline / ghost */
+.btn-outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+/* danger */
+.btn-danger {
+    background: var(--color-error);
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+    box-shadow: 0 4px 14px rgba(214, 48, 49, 0.4);
+}
+
+/* disabled */
+.btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ---------- Input Base ---------- */
+.input {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+}
+
+.input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(225, 112, 85, 0.15);
+}
+
+.input::placeholder {
+    color: #b2bec3;
+}
+
+/* ---------- Error message ---------- */
+.error-text {
+    color: var(--color-error);
+    background: var(--color-error-bg);
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 8px;
+}
