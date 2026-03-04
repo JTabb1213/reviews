@@ -117,6 +117,10 @@ app.get('/api/debug-session', (req, res) => {
     res.send(req.session);
 });
 
+app.get('/api/hello', (req, res) => {
+    res.json({ message: "Hello from backend!" });
+});
+
 
 function isLoggedIn(req, res, next) {
     if (req.session.user) {
