@@ -55,6 +55,10 @@ jobs:
       - name: Build and push Docker image
         id: build
         run: |
+          if [ -z "${{ env.REGION }}" ]; then
+            echo "ERROR: REGION is not set. Add GCP_REGION as a GitHub secret."
+            exit 1
+          fi
           IMAGE="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.AR_REPO }}/backend:${{ github.sha }}"
           docker build -t "$IMAGE" ./backend2
           docker push "$IMAGE"
