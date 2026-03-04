@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React from 'react';
 import { useHttpClient } from '../HttpClient';
 //import { /*useNavigate,*/ useLocation } from 'react-router-dom';
 //import { useState } from 'react';

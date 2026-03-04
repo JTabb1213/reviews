@@ -58,7 +58,7 @@ function DisplayPage() {
                 console.error("error", error);
             })
         }
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [username]);
 
     useEffect(() => {
@@ -92,7 +92,7 @@ function DisplayPage() {
         }
 
         getData();
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     //console.log("made it here", query);

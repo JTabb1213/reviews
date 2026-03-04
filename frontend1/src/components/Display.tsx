@@ -49,6 +49,7 @@ function DisplayResults() {
             }
         }
         getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getPhotosFromBackend = async (photoReference: string) => {
@@ -73,7 +74,7 @@ function DisplayResults() {
                             {name}
                         </div>
                         {photoURLs.map((url, index) => (
-                            <img key={index} src={url} alt={`${name} photo ${index + 1}`} className="photo" />
+                            <img key={index} src={url} alt={`${name} — ${index + 1}`} className="photo" />
                         ))}
                     </>
                 )}

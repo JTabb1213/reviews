@@ -45,7 +45,7 @@ function SearchPage() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await httpClient.post('/api/seeIfLoggedIn', {}, { withCredentials: true });
+                await httpClient.post('/api/seeIfLoggedIn', {}, { withCredentials: true });
             } catch (error: any) {
                 if (error.response && error.response.status === 401) {
                     //console.log("not logged in");
@@ -57,7 +57,7 @@ function SearchPage() {
         }
 
         getData();
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

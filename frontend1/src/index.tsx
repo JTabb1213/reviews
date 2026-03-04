@@ -36,20 +36,6 @@ export default function App() {
     </BrowserRouter>
   );
 }
-return (
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<SearchPage />} />
-      <Route path="/displaypage" element={<DisplayPage />} />
-      <Route path="/loginpage" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/reviewpage" element={<ReviewPage />} />
-      <Route path="/needtologin" element={<BadLoginPage />} />
-      <Route path="/logoutpage" element={<LogoutPage />} />
-    </Routes>
-  </BrowserRouter>
-);
-}
 
 const root = createRoot(document.getElementById('root')!); // Use createRoot from react-dom
 

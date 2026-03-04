@@ -16,10 +16,8 @@ function ReviewPage() {
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);
     const query = queryParams.get('id');
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
     //const [reviewText, setReviewText] = useState('');
     const [error, setError] = useState<string | null>(null);
-    const [working, setWorking] = useState<boolean | null>(null);
     const [restaurant, setRestaurant] = useState<string | null>(null);
     const [review, setReview] = useState("");
     const [rating, setRating] = useState<number | null>(0);
@@ -34,7 +32,6 @@ function ReviewPage() {
             } catch (error: any) {
                 if (error.response && error.response.status === 401) {
                     console.log("user is not logged in");
-                    setIsLoggedIn(false);
                 } else {
                     console.error("error seeing login info: ", error);
                 }
@@ -48,6 +45,7 @@ function ReviewPage() {
             }
         }
         getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleReviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -78,8 +76,6 @@ function ReviewPage() {
             navigate(redirectUrl || '/');
         }).catch(err => {
             console.log("error: ", error);
-        }).finally(() => {
-            setWorking(false);
         })
     }
 
